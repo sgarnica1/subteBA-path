@@ -96,9 +96,13 @@ Las contribuciones son bienvenidas. Por favor, seguir los siguientes pasos:
 6. Crear un Pull Request
 
 ## Autores
-| Apellidos | Nombre | Matrícula | Email | Grupo | 
-| --------- | ------ | --------- | ----- | ----- |  
-|           |         |          |       |        | 
+| Apellidos           | Nombre | Matrícula | Email                      | Grupo  |
+| ------------------- | ------ | --------- | -------------------------- | ------ |
+| Tahri Jautei Hassan | Mamoun | 220129    | mamoun.t@alumnos.upm.es    | 5S2M-B |
+| El Fakhouri         | Adam   | 220107s   | adam.elf@alumnos.upm.es    | 5S2M-B |
+| Blay González       | Álvaro | 220469    | alvaro.blay@alumnos.upm.es | 5S1M   |
+| Anaam               | Farid  | 210321    | farid.anaam@alumnos.upm.es | 5S2M-B |
+| Garnica González    | Sergio | 240817    | s.garnica@alumnos.upm.es   | 5S1M-B |
 
 ## Licencia
 Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
