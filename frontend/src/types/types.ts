@@ -8,3 +8,11 @@ export type StationsType = {
   position: PositionType,
   line: string
 }
+
+export type Step = {
+  time: string;
+  mode: "walking" | "bus";
+  description: string;
+  details: string;
+  lineColor?: string; // Optional: For different modes of transport
+};
