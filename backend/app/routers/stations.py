@@ -17,8 +17,8 @@ async def get_stations():
     Returns:
         dict: A dictionary containing a dict of stations with positions.
     """
-    stations = get_stations_with_positions()
-    return {"stations": stations}
+    data = get_stations_with_positions()
+    return data
 
 
 class PathRequest(BaseModel):

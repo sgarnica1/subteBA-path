@@ -1,6 +1,6 @@
 import networkx as nx
 from app.repositories.graph import MetroGraph
-from app.data.data import STATIONS_POSITION, CONNECTIONS
+from app.data.data import STATIONS_POSITION, CONNECTIONS, LINE_NAMES
 
 graph = MetroGraph(STATIONS_POSITION.values(), CONNECTIONS)
 
@@ -13,6 +13,9 @@ def get_stations() -> dict:
         list: A list of station nodes.
     """
     return graph.nodes
+
+def get_lines() -> list:
+    return LINE_NAMES
 
 
 def get_station_graph() -> nx.Graph:
