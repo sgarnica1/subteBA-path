@@ -1,8 +1,6 @@
-# config.py
+VELOCITY = 400  # la velocidad media pasó de 24 km/hora a metros/minutos
 
-VELOCIDAD = 400  # la velocidad media pasó de 24 km/hora a metros/minutos
-
-ESTACIONES = {
+STATIONS = {
     "ALBERTI": "ALBERTI",
     "PASCO": "PASCO",
     "CONGRESO": "CONGRESO",
@@ -39,7 +37,7 @@ ESTACIONES = {
     "BOLIVAR": "BOLIVAR",
 }
 
-LINEAS = {
+LINE_NAMES = {
     "LINEA_A": "Línea A",
     "LINEA_B": "Línea B",
     "LINEA_C": "Línea C",
@@ -47,273 +45,273 @@ LINEAS = {
     "LINEA_E": "Línea E",
 }
 
-ESTACIONES_POSICIONES = {
+STATIONS_POSITION = {
     # LÍNEA A
-    ESTACIONES["ALBERTI"]: {
-        "name": ESTACIONES["ALBERTI"],
+    STATIONS["ALBERTI"]: {
+        "name": STATIONS["ALBERTI"],
         "position": (0, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["PASCO"]: {
-        "name": ESTACIONES["PASCO"],
+    STATIONS["PASCO"]: {
+        "name": STATIONS["PASCO"],
         "position": (1, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["CONGRESO"]: {
-        "name": ESTACIONES["CONGRESO"],
+    STATIONS["CONGRESO"]: {
+        "name": STATIONS["CONGRESO"],
         "position": (2, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["SAENZ_PENA"]: {
-        "name": ESTACIONES["SAENZ_PENA"],
+    STATIONS["SAENZ_PENA"]: {
+        "name": STATIONS["SAENZ_PENA"],
         "position": (3, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["LIMA"]: {
-        "name": ESTACIONES["LIMA"],
+    STATIONS["LIMA"]: {
+        "name": STATIONS["LIMA"],
         "position": (4, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["PIEDRAS"]: {
-        "name": ESTACIONES["PIEDRAS"],
+    STATIONS["PIEDRAS"]: {
+        "name": STATIONS["PIEDRAS"],
         "position": (5, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["PERU"]: {
-        "name": ESTACIONES["PERU"],
+    STATIONS["PERU"]: {
+        "name": STATIONS["PERU"],
         "position": (6, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
-    ESTACIONES["PLAZA_DE_MAYO"]: {
-        "name": ESTACIONES["PLAZA_DE_MAYO"],
+    STATIONS["PLAZA_DE_MAYO"]: {
+        "name": STATIONS["PLAZA_DE_MAYO"],
         "position": (7, 9),
-        "line": LINEAS["LINEA_A"],
+        "line": LINE_NAMES["LINEA_A"],
     },
     # LÍNEA B
-    ESTACIONES["PASTEUR"]: {
-        "name": ESTACIONES["PASTEUR"],
+    STATIONS["PASTEUR"]: {
+        "name": STATIONS["PASTEUR"],
         "position": (0.5, 11.5),
-        "line": LINEAS["LINEA_B"],
+        "line": LINE_NAMES["LINEA_B"],
     },
-    ESTACIONES["CALLAO_B"]: {
-        "name": ESTACIONES["CALLAO_B"],
+    STATIONS["CALLAO_B"]: {
+        "name": STATIONS["CALLAO_B"],
         "position": (2, 11.5),
-        "line": LINEAS["LINEA_B"],
+        "line": LINE_NAMES["LINEA_B"],
     },
-    ESTACIONES["URUGUAY"]: {
-        "name": ESTACIONES["URUGUAY"],
+    STATIONS["URUGUAY"]: {
+        "name": STATIONS["URUGUAY"],
         "position": (3, 11.5),
-        "line": LINEAS["LINEA_B"],
+        "line": LINE_NAMES["LINEA_B"],
     },
-    ESTACIONES["CARLOS_PELLEGRINI"]: {
-        "name": ESTACIONES["CARLOS_PELLEGRINI"],
+    STATIONS["CARLOS_PELLEGRINI"]: {
+        "name": STATIONS["CARLOS_PELLEGRINI"],
         "position": (5, 11.5),
-        "line": LINEAS["LINEA_B"],
+        "line": LINE_NAMES["LINEA_B"],
     },
-    ESTACIONES["FLORIDA"]: {
-        "name": ESTACIONES["FLORIDA"],
+    STATIONS["FLORIDA"]: {
+        "name": STATIONS["FLORIDA"],
         "position": (6, 11.5),
-        "line": LINEAS["LINEA_B"],
+        "line": LINE_NAMES["LINEA_B"],
     },
-    ESTACIONES["LEANDRO_N_ALEM"]: {
-        "name": ESTACIONES["LEANDRO_N_ALEM"],
+    STATIONS["LEANDRO_N_ALEM"]: {
+        "name": STATIONS["LEANDRO_N_ALEM"],
         "position": (7, 11.5),
-        "line": LINEAS["LINEA_B"],
+        "line": LINE_NAMES["LINEA_B"],
     },
     # LÍNEA C
-    ESTACIONES["RETIRO"]: {
-        "name": ESTACIONES["RETIRO"],
+    STATIONS["RETIRO"]: {
+        "name": STATIONS["RETIRO"],
         "position": (7, 15),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["GENERAL_SAN_MARTIN"]: {
-        "name": ESTACIONES["GENERAL_SAN_MARTIN"],
+    STATIONS["GENERAL_SAN_MARTIN"]: {
+        "name": STATIONS["GENERAL_SAN_MARTIN"],
         "position": (6.5, 14),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["LAVALLE"]: {
-        "name": ESTACIONES["LAVALLE"],
+    STATIONS["LAVALLE"]: {
+        "name": STATIONS["LAVALLE"],
         "position": (5.5, 12),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["DIAGONAL_NORTE"]: {
-        "name": ESTACIONES["DIAGONAL_NORTE"],
+    STATIONS["DIAGONAL_NORTE"]: {
+        "name": STATIONS["DIAGONAL_NORTE"],
         "position": (5, 10.5),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["AVENIDA_DE_MAYO"]: {
-        "name": ESTACIONES["AVENIDA_DE_MAYO"],
+    STATIONS["AVENIDA_DE_MAYO"]: {
+        "name": STATIONS["AVENIDA_DE_MAYO"],
         "position": (4.5, 9),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["MORENO"]: {
-        "name": ESTACIONES["MORENO"],
+    STATIONS["MORENO"]: {
+        "name": STATIONS["MORENO"],
         "position": (4.5, 7.5),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["INDEPENDENCIA_C"]: {
-        "name": ESTACIONES["INDEPENDENCIA_C"],
+    STATIONS["INDEPENDENCIA_C"]: {
+        "name": STATIONS["INDEPENDENCIA_C"],
         "position": (4.5, 5),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["SAN_JUAN"]: {
-        "name": ESTACIONES["SAN_JUAN"],
+    STATIONS["SAN_JUAN"]: {
+        "name": STATIONS["SAN_JUAN"],
         "position": (4.5, 3),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
-    ESTACIONES["CONSTITUCION"]: {
-        "name": ESTACIONES["CONSTITUCION"],
+    STATIONS["CONSTITUCION"]: {
+        "name": STATIONS["CONSTITUCION"],
         "position": (4.5, 0),
-        "line": LINEAS["LINEA_C"],
+        "line": LINE_NAMES["LINEA_C"],
     },
     # LÍNEA D
-    ESTACIONES["FACULTAD_DE_MEDICINA"]: {
-        "name": ESTACIONES["FACULTAD_DE_MEDICINA"],
+    STATIONS["FACULTAD_DE_MEDICINA"]: {
+        "name": STATIONS["FACULTAD_DE_MEDICINA"],
         "position": (0, 13),
-        "line": LINEAS["LINEA_D"],
+        "line": LINE_NAMES["LINEA_D"],
     },
-    ESTACIONES["CALLAO_D"]: {
-        "name": ESTACIONES["CALLAO_D"],
+    STATIONS["CALLAO_D"]: {
+        "name": STATIONS["CALLAO_D"],
         "position": (2, 13),
-        "line": LINEAS["LINEA_D"],
+        "line": LINE_NAMES["LINEA_D"],
     },
-    ESTACIONES["TRIBUNALES"]: {
-        "name": ESTACIONES["TRIBUNALES"],
+    STATIONS["TRIBUNALES"]: {
+        "name": STATIONS["TRIBUNALES"],
         "position": (3, 12),
-        "line": LINEAS["LINEA_D"],
+        "line": LINE_NAMES["LINEA_D"],
     },
-    ESTACIONES["9_DE_JULIO"]: {
-        "name": ESTACIONES["9_DE_JULIO"],
+    STATIONS["9_DE_JULIO"]: {
+        "name": STATIONS["9_DE_JULIO"],
         "position": (5, 11),
-        "line": LINEAS["LINEA_D"],
+        "line": LINE_NAMES["LINEA_D"],
     },
-    ESTACIONES["CATEDRAL"]: {
-        "name": ESTACIONES["CATEDRAL"],
+    STATIONS["CATEDRAL"]: {
+        "name": STATIONS["CATEDRAL"],
         "position": (6, 10),
-        "line": LINEAS["LINEA_D"],
+        "line": LINE_NAMES["LINEA_D"],
     },
     # LÍNEA E
-    ESTACIONES["PICHINCHA"]: {
-        "name": ESTACIONES["PICHINCHA"],
+    STATIONS["PICHINCHA"]: {
+        "name": STATIONS["PICHINCHA"],
         "position": (0.5, 3),
-        "line": LINEAS["LINEA_E"],
+        "line": LINE_NAMES["LINEA_E"],
     },
-    ESTACIONES["ENTRE_RIOS"]: {
-        "name": ESTACIONES["ENTRE_RIOS"],
+    STATIONS["ENTRE_RIOS"]: {
+        "name": STATIONS["ENTRE_RIOS"],
         "position": (2, 3),
-        "line": LINEAS["LINEA_E"],
+        "line": LINE_NAMES["LINEA_E"],
     },
-    ESTACIONES["SAN_JOSE"]: {
-        "name": ESTACIONES["SAN_JOSE"],
+    STATIONS["SAN_JOSE"]: {
+        "name": STATIONS["SAN_JOSE"],
         "position": (3, 3),
-        "line": LINEAS["LINEA_E"],
+        "line": LINE_NAMES["LINEA_E"],
     },
-    ESTACIONES["INDEPENDENCIA_E"]: {
-        "name": ESTACIONES["INDEPENDENCIA_E"],
+    STATIONS["INDEPENDENCIA_E"]: {
+        "name": STATIONS["INDEPENDENCIA_E"],
         "position": (3.5, 5),
-        "line": LINEAS["LINEA_E"],
+        "line": LINE_NAMES["LINEA_E"],
     },
-    ESTACIONES["BELGRANO"]: {
-        "name": ESTACIONES["BELGRANO"],
+    STATIONS["BELGRANO"]: {
+        "name": STATIONS["BELGRANO"],
         "position": (5, 7),
-        "line": LINEAS["LINEA_E"],
+        "line": LINE_NAMES["LINEA_E"],
     },
-    ESTACIONES["BOLIVAR"]: {
-        "name": ESTACIONES["BOLIVAR"],
+    STATIONS["BOLIVAR"]: {
+        "name": STATIONS["BOLIVAR"],
         "position": (6, 8),
-        "line": LINEAS["LINEA_E"],
+        "line": LINE_NAMES["LINEA_E"],
     },
 }
 
-CONEXIONES = [
+CONNECTIONS = [
     # Línea A
-    (ESTACIONES["ALBERTI"], ESTACIONES["PASCO"]),
-    (ESTACIONES["PASCO"], ESTACIONES["CONGRESO"]),
-    (ESTACIONES["CONGRESO"], ESTACIONES["SAENZ_PENA"]),
-    (ESTACIONES["SAENZ_PENA"], ESTACIONES["LIMA"]),
-    (ESTACIONES["LIMA"], ESTACIONES["PIEDRAS"]),
-    (ESTACIONES["PIEDRAS"], ESTACIONES["PERU"]),
-    (ESTACIONES["PERU"], ESTACIONES["PLAZA_DE_MAYO"]),
+    (STATIONS["ALBERTI"], STATIONS["PASCO"]),
+    (STATIONS["PASCO"], STATIONS["CONGRESO"]),
+    (STATIONS["CONGRESO"], STATIONS["SAENZ_PENA"]),
+    (STATIONS["SAENZ_PENA"], STATIONS["LIMA"]),
+    (STATIONS["LIMA"], STATIONS["PIEDRAS"]),
+    (STATIONS["PIEDRAS"], STATIONS["PERU"]),
+    (STATIONS["PERU"], STATIONS["PLAZA_DE_MAYO"]),
     # Línea B
-    (ESTACIONES["PASTEUR"], ESTACIONES["CALLAO_B"]),
-    (ESTACIONES["CALLAO_B"], ESTACIONES["URUGUAY"]),
-    (ESTACIONES["URUGUAY"], ESTACIONES["CARLOS_PELLEGRINI"]),
-    (ESTACIONES["CARLOS_PELLEGRINI"], ESTACIONES["FLORIDA"]),
-    (ESTACIONES["FLORIDA"], ESTACIONES["LEANDRO_N_ALEM"]),
+    (STATIONS["PASTEUR"], STATIONS["CALLAO_B"]),
+    (STATIONS["CALLAO_B"], STATIONS["URUGUAY"]),
+    (STATIONS["URUGUAY"], STATIONS["CARLOS_PELLEGRINI"]),
+    (STATIONS["CARLOS_PELLEGRINI"], STATIONS["FLORIDA"]),
+    (STATIONS["FLORIDA"], STATIONS["LEANDRO_N_ALEM"]),
     # Línea C
-    (ESTACIONES["RETIRO"], ESTACIONES["GENERAL_SAN_MARTIN"]),
-    (ESTACIONES["GENERAL_SAN_MARTIN"], ESTACIONES["LAVALLE"]),
-    (ESTACIONES["LAVALLE"], ESTACIONES["DIAGONAL_NORTE"]),
-    (ESTACIONES["DIAGONAL_NORTE"], ESTACIONES["AVENIDA_DE_MAYO"]),
-    (ESTACIONES["AVENIDA_DE_MAYO"], ESTACIONES["MORENO"]),
-    (ESTACIONES["MORENO"], ESTACIONES["INDEPENDENCIA_C"]),
-    (ESTACIONES["INDEPENDENCIA_C"], ESTACIONES["SAN_JUAN"]),
-    (ESTACIONES["SAN_JUAN"], ESTACIONES["CONSTITUCION"]),
+    (STATIONS["RETIRO"], STATIONS["GENERAL_SAN_MARTIN"]),
+    (STATIONS["GENERAL_SAN_MARTIN"], STATIONS["LAVALLE"]),
+    (STATIONS["LAVALLE"], STATIONS["DIAGONAL_NORTE"]),
+    (STATIONS["DIAGONAL_NORTE"], STATIONS["AVENIDA_DE_MAYO"]),
+    (STATIONS["AVENIDA_DE_MAYO"], STATIONS["MORENO"]),
+    (STATIONS["MORENO"], STATIONS["INDEPENDENCIA_C"]),
+    (STATIONS["INDEPENDENCIA_C"], STATIONS["SAN_JUAN"]),
+    (STATIONS["SAN_JUAN"], STATIONS["CONSTITUCION"]),
     # Línea D
-    (ESTACIONES["FACULTAD_DE_MEDICINA"], ESTACIONES["CALLAO_D"]),
-    (ESTACIONES["CALLAO_D"], ESTACIONES["TRIBUNALES"]),
-    (ESTACIONES["TRIBUNALES"], ESTACIONES["9_DE_JULIO"]),
-    (ESTACIONES["9_DE_JULIO"], ESTACIONES["CATEDRAL"]),
+    (STATIONS["FACULTAD_DE_MEDICINA"], STATIONS["CALLAO_D"]),
+    (STATIONS["CALLAO_D"], STATIONS["TRIBUNALES"]),
+    (STATIONS["TRIBUNALES"], STATIONS["9_DE_JULIO"]),
+    (STATIONS["9_DE_JULIO"], STATIONS["CATEDRAL"]),
     # Línea E
-    (ESTACIONES["PICHINCHA"], ESTACIONES["ENTRE_RIOS"]),
-    (ESTACIONES["ENTRE_RIOS"], ESTACIONES["SAN_JOSE"]),
-    (ESTACIONES["SAN_JOSE"], ESTACIONES["INDEPENDENCIA_E"]),
-    (ESTACIONES["INDEPENDENCIA_E"], ESTACIONES["BELGRANO"]),
-    (ESTACIONES["BELGRANO"], ESTACIONES["BOLIVAR"]),
+    (STATIONS["PICHINCHA"], STATIONS["ENTRE_RIOS"]),
+    (STATIONS["ENTRE_RIOS"], STATIONS["SAN_JOSE"]),
+    (STATIONS["SAN_JOSE"], STATIONS["INDEPENDENCIA_E"]),
+    (STATIONS["INDEPENDENCIA_E"], STATIONS["BELGRANO"]),
+    (STATIONS["BELGRANO"], STATIONS["BOLIVAR"]),
     # Transbordos
-    (ESTACIONES["BOLIVAR"], ESTACIONES["PERU"]),
-    (ESTACIONES["BOLIVAR"], ESTACIONES["CATEDRAL"]),
-    (ESTACIONES["CATEDRAL"], ESTACIONES["PERU"]),
-    (ESTACIONES["INDEPENDENCIA_C"], ESTACIONES["INDEPENDENCIA_E"]),
-    (ESTACIONES["LIMA"], ESTACIONES["AVENIDA_DE_MAYO"]),
-    (ESTACIONES["DIAGONAL_NORTE"], ESTACIONES["9_DE_JULIO"]),
-    (ESTACIONES["DIAGONAL_NORTE"], ESTACIONES["CARLOS_PELLEGRINI"]),
-    (ESTACIONES["9_DE_JULIO"], ESTACIONES["CARLOS_PELLEGRINI"]),
+    (STATIONS["BOLIVAR"], STATIONS["PERU"]),
+    (STATIONS["BOLIVAR"], STATIONS["CATEDRAL"]),
+    (STATIONS["CATEDRAL"], STATIONS["PERU"]),
+    (STATIONS["INDEPENDENCIA_C"], STATIONS["INDEPENDENCIA_E"]),
+    (STATIONS["LIMA"], STATIONS["AVENIDA_DE_MAYO"]),
+    (STATIONS["DIAGONAL_NORTE"], STATIONS["9_DE_JULIO"]),
+    (STATIONS["DIAGONAL_NORTE"], STATIONS["CARLOS_PELLEGRINI"]),
+    (STATIONS["9_DE_JULIO"], STATIONS["CARLOS_PELLEGRINI"]),
 ]
 
-LINEAS = {
+LINE_STATIONS = {
     "LINEA_A": [
-        ESTACIONES["ALBERTI"],
-        ESTACIONES["PASCO"],
-        ESTACIONES["CONGRESO"],
-        ESTACIONES["SAENZ_PENA"],
-        ESTACIONES["LIMA"],
-        ESTACIONES["PIEDRAS"],
-        ESTACIONES["PERU"],
-        ESTACIONES["PLAZA_DE_MAYO"],
+        STATIONS["ALBERTI"],
+        STATIONS["PASCO"],
+        STATIONS["CONGRESO"],
+        STATIONS["SAENZ_PENA"],
+        STATIONS["LIMA"],
+        STATIONS["PIEDRAS"],
+        STATIONS["PERU"],
+        STATIONS["PLAZA_DE_MAYO"],
     ],
     "LINEA_B": [
-        ESTACIONES["PASTEUR"],
-        ESTACIONES["CALLAO_B"],
-        ESTACIONES["URUGUAY"],
-        ESTACIONES["CARLOS_PELLEGRINI"],
-        ESTACIONES["FLORIDA"],
-        ESTACIONES["LEANDRO_N_ALEM"],
+        STATIONS["PASTEUR"],
+        STATIONS["CALLAO_B"],
+        STATIONS["URUGUAY"],
+        STATIONS["CARLOS_PELLEGRINI"],
+        STATIONS["FLORIDA"],
+        STATIONS["LEANDRO_N_ALEM"],
     ],
     "LINEA_C": [
-        ESTACIONES["RETIRO"],
-        ESTACIONES["GENERAL_SAN_MARTIN"],
-        ESTACIONES["LAVALLE"],
-        ESTACIONES["DIAGONAL_NORTE"],
-        ESTACIONES["AVENIDA_DE_MAYO"],
-        ESTACIONES["MORENO"],
-        ESTACIONES["INDEPENDENCIA_C"],
-        ESTACIONES["SAN_JUAN"],
-        ESTACIONES["CONSTITUCION"],
+        STATIONS["RETIRO"],
+        STATIONS["GENERAL_SAN_MARTIN"],
+        STATIONS["LAVALLE"],
+        STATIONS["DIAGONAL_NORTE"],
+        STATIONS["AVENIDA_DE_MAYO"],
+        STATIONS["MORENO"],
+        STATIONS["INDEPENDENCIA_C"],
+        STATIONS["SAN_JUAN"],
+        STATIONS["CONSTITUCION"],
     ],
     "LINEA_D": [
-        ESTACIONES["FACULTAD_DE_MEDICINA"],
-        ESTACIONES["CALLAO_D"],
-        ESTACIONES["TRIBUNALES"],
-        ESTACIONES["9_DE_JULIO"],
-        ESTACIONES["CATEDRAL"],
+        STATIONS["FACULTAD_DE_MEDICINA"],
+        STATIONS["CALLAO_D"],
+        STATIONS["TRIBUNALES"],
+        STATIONS["9_DE_JULIO"],
+        STATIONS["CATEDRAL"],
     ],
     "LINEA_E": [
-        ESTACIONES["PICHINCHA"],
-        ESTACIONES["ENTRE_RIOS"],
-        ESTACIONES["SAN_JOSE"],
-        ESTACIONES["INDEPENDENCIA_E"],
-        ESTACIONES["BELGRANO"],
-        ESTACIONES["BOLIVAR"],
+        STATIONS["PICHINCHA"],
+        STATIONS["ENTRE_RIOS"],
+        STATIONS["SAN_JOSE"],
+        STATIONS["INDEPENDENCIA_E"],
+        STATIONS["BELGRANO"],
+        STATIONS["BOLIVAR"],
     ],
 }

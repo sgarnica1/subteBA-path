@@ -22,7 +22,6 @@ class MetroGraph(nx.Graph):
 
     def add_stations(self, stations: List[str]):
         """Adds a list of stations (nodes) to the graph."""
-        # print(stations.values())
         for station in stations:
             self.add_node(
                 station["name"],
@@ -30,7 +29,6 @@ class MetroGraph(nx.Graph):
                 position=station["position"],
                 line=station["line"],
             )
-        # self.add_nodes_from(stations)
 
     def add_connections(self, connections: List[Tuple[str, str]]):
         """Adds a list of connections (edges) between stations."""

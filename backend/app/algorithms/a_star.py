@@ -7,9 +7,26 @@ from app.algorithms.heuristics import time_between_stations
 def a_star(
     start_node: str, final_node: str, graph: nx.Graph
 ) -> Optional[Tuple[List[str], List[str]]]:
+    """
+    A* search algorithm to find the shortest path between two nodes in a graph.
 
+    Args:
+        start_node (str): The starting node identifier.
+        final_node (str): The destination node identifier.
+        graph (nx.Graph): A NetworkX graph where nodes represent stations.
+
+    Returns:
+        Optional[Tuple[List[str], List[str]]]:
+            - If a path is found, returns a tuple containing:
+              1. List of nodes representing the path.
+              2. List of lines corresponding to each segment of the path.
+            - If no path is found, returns (None, None).
+    """
+    # Priority queue to hold nodes to explore
     open_heap = []
+    # Set to keep track of visited nodes
     visited = set()
+    # Push initial node into the heap (time, current_node, path, lines)
     heapq.heappush(open_heap, (0, start_node, [], []))
 
     while open_heap:
