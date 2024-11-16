@@ -1,13 +1,16 @@
+from typing import Optional, List, Tuple
 import networkx as nx
 import heapq
-from heuristics import time_between_stations
-from config import POSICIONES_ESTACIONES
+from app.algorithms.heuristics import time_between_stations
 
 
-def a_star(start_node: str, final_node: str, graph: nx.Graph):
+def a_star(
+    start_node: str, final_node: str, graph: nx.Graph
+) -> Optional[Tuple[List[str], List[str]]]:
+
     open_heap = []
-    heapq.heappush(open_heap, (0, start_node, [], []))
     visited = set()
+    heapq.heappush(open_heap, (0, start_node, [], []))
 
     while open_heap:
         time, current_node, path, lines = heapq.heappop(open_heap)
@@ -23,7 +26,7 @@ def a_star(start_node: str, final_node: str, graph: nx.Graph):
                     new_time = time + total_time
                     heuristic = time_between_stations(neighbor, final_node)
                     current_line = graph.nodes[current_node].get(
-                        "linea", "Desconocida"
+                        "line", "Unknown"
                     )  # Cambio aquí
                     if len(lines) == 0 or lines[-1] != current_line:
                         new_lines = lines + [current_line]

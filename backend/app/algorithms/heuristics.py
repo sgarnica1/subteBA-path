@@ -1,7 +1,7 @@
 # heuristics.py
 from math import sqrt
 from typing import Tuple
-from config import VELOCIDAD, POSICIONES_ESTACIONES
+from app.data.data import VELOCIDAD, ESTACIONES_POSICIONES
 
 
 def distance_between_points(
@@ -16,6 +16,6 @@ def distance_between_points(
 def time_between_stations(
     start_station: str, final_station: str, velocity: float = VELOCIDAD
 ) -> float:
-    start_position = POSICIONES_ESTACIONES[start_station]
-    final_station = POSICIONES_ESTACIONES[final_station]
+    start_position = ESTACIONES_POSICIONES[start_station]["position"]
+    final_station = ESTACIONES_POSICIONES[final_station]["position"]
     return distance_between_points(start_position, final_station) / velocity
