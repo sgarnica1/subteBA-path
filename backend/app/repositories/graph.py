@@ -24,7 +24,8 @@ class MetroGraph(nx.Graph):
         """Adds a list of stations (nodes) to the graph."""
         for station in stations:
             self.add_node(
-                station["name"],
+                station["id"],
+                id=station["id"],
                 name=station["name"],
                 position=station["position"],
                 line=station["line"],

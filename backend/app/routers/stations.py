@@ -1,7 +1,7 @@
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from fastapi import APIRouter, HTTPException, Query
 from app.data.data import STATIONS
 from app.services.station_service import get_stations_with_positions, find_path
+from app.config.logger import configure_logger
 
 router = APIRouter()
 
@@ -17,21 +17,15 @@ async def get_stations():
     Returns:
         dict: A dictionary containing a dict of stations with positions.
     """
-    stations = get_stations_with_positions()
-    return {"stations": stations}
-
-
-class PathRequest(BaseModel):
-    """
-    Request model for the shortest path endpoint.
-    """
-
-    start_position: str
-    final_position: str
+    data = get_stations_with_positions()
+    return data
 
 
 @router.get("/path")
-async def get_shortest_path(request: PathRequest):
+async def get_shortest_path(
+    start_position: str = Query(..., description="The name of the starting station"),
+    final_position: str = Query(..., description="The name of the destination station"),
+):
     """
     Find the shortest path between two stations.
 
@@ -40,7 +34,8 @@ async def get_shortest_path(request: PathRequest):
     service to compute the path, the lines taken, and the total travel time.
 
     Args:
-        request (PathRequest): A request containing the start and final positions.
+        start_position (str): The name of the starting station.
+        final_position (str): The name of the ending station.
 
     Returns:
         dict: A dictionary containing the following:
@@ -54,25 +49,25 @@ async def get_shortest_path(request: PathRequest):
         HTTPException: If the start or end station is invalid, or no path is found.
     """
     try:
-        if request.start_position not in STATIONS.values():
-            raise ValueError(f"Start station {request.start_position} not found")
-        if request.final_position not in STATIONS:
-            raise ValueError(f"Start station {request.start_position} not found")
+        if start_position not in STATIONS.values():
+            raise ValueError(f"Start station {start_position} not found")
+        if final_position not in STATIONS.values():
+            raise ValueError(f"Destination station {final_position} not found")
 
-        start_station = STATIONS[request.start_position]
-        final_station = STATIONS[request.final_position]
+        start_station = STATIONS[start_position]
+        final_station = STATIONS[final_position]
 
         # Get path result
         path_result = find_path(start_station, final_station)
 
-        if path_result[0] == None:
+        if path_result[0] is None:
             raise ValueError("No valid path found between the stations")
 
         path, lines, total_time = path_result
 
         response = {
-            "start_position": request.start_position,
-            "final_position": request.final_position,
+            "start_position": start_position,
+            "final_position": final_position,
             "path": path,
             "lines": lines,
             "total_time": total_time,
@@ -84,4 +79,4 @@ async def get_shortest_path(request: PathRequest):
         raise HTTPException(status_code=400, detail=f"Invalid positions provided. {e}")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error")
+        raise HTTPException(status_code=500, detail="Internal server error" + e)

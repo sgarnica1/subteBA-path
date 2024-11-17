@@ -2,14 +2,18 @@ import networkx as nx
 from typing import List, Optional, Tuple
 from app.algorithms.a_star import a_star
 from app.algorithms.heuristics import time_between_stations
-from app.repositories.station_repository import get_stations, get_station_graph
+from app.repositories.station_repository import (
+    get_stations,
+    get_station_graph,
+    get_lines,
+)
 
 
 def get_stations_with_positions() -> dict:
     """
     Retrieve stations with their respective positions as a graph.
     """
-    return get_stations()
+    return {"stations": get_stations(), "lines": get_lines()}
 
 
 def find_path(start: str, finish: str) -> Optional[Tuple[List[str], List[str], int]]:
@@ -35,6 +39,8 @@ def find_path(start: str, finish: str) -> Optional[Tuple[List[str], List[str], i
     if not path:
         return None
 
+    path_details = [graph.nodes[station] for station in path]
+
     travel_time = sum(
         time_between_stations(path[i], path[i + 1]) for i in range(len(path) - 1)
     )
@@ -43,4 +49,4 @@ def find_path(start: str, finish: str) -> Optional[Tuple[List[str], List[str], i
     )
     total_time = travel_time + change_line_time
 
-    return [path, lines, total_time]
+    return [path_details, lines, total_time]
