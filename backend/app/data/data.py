@@ -1,4 +1,4 @@
-VELOCITY = 400  # la velocidad media pasó de 24 km/hora a metros/minutos
+VELOCITY = 400  # la velocidad media pasó de 24 km/hora a 400 metros/minutos
 
 STATIONS = {
     "ALBERTI": "ALBERTI",

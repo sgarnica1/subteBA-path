@@ -21,9 +21,12 @@ const Sidebar = ({ options }: SidebarProps) => {
   const { setShortestPath } = useSubte()
 
   const getShortestPath = () => {
+    if (origin == "" || destiny == "") return
+
     fetch(`http://localhost:8000/api/path/?start_position=${origin}&final_position=${destiny}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setTotalTime(Math.ceil(data.total_time))
 
         const formatted = Object.values(data.path).map((station: any) => ({
@@ -38,7 +41,7 @@ const Sidebar = ({ options }: SidebarProps) => {
           const mode = index < data.path.length - 1 && data.path[index + 1].line != station.line ? "walking" : "bus"
 
           return {
-            time: index,
+            time: Math.ceil(station.travel_time ? station.travel_time : 0),
             mode: mode,
             description: station.name,
             details: station.line,
@@ -51,7 +54,7 @@ const Sidebar = ({ options }: SidebarProps) => {
 
 
   return (
-    <div className="min-w-[200px] w-[25%] h-full bg-white text-gray-900 p-6 overflow-y-auto">
+    <div className="min-w-[200px] lg:w-[22%] md:w-[36%] h-full bg-white text-gray-900 p-6 overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">Subte Buenos Aires</h2>
       <div className='flex flex-col gap-2'>
         <Select options={options} onChange={(e) => e && setOrigin(e.value)} placeholder={"Elige un punto de partida"} />

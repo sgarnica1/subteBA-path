@@ -1,7 +1,7 @@
 from typing import Optional, List, Tuple
 import networkx as nx
 import heapq
-from app.algorithms.heuristics import time_between_stations
+from app.algorithms.heuristics import distance_between_stations
 from app.config.logger import configure_logger
 
 logger = configure_logger()
@@ -27,37 +27,58 @@ def a_star(
     """
     # Priority queue to hold nodes to explore
     open_heap = []
-    # Set to keep track of visited nodes
+    # Dictionary to keep track of g scores (actual distance from start)
+    g_scores = {start_node: 0}
+    # Set to keep track of the visited nodes
     visited = set()
-    # Push initial node into the heap (time, current_node, path, lines)
-    heapq.heappush(open_heap, (0, start_node, [], []))
+    # Dictionary to store best parent for each node
+    came_from = {}
+    # Dictionary to store the line used to reach each node
+    line_used = {}
+
+    # Initial heuristic calculation
+    initial_f = g_scores[start_node] + distance_between_stations(start_node, final_node)
+
+    # Push initial node into the heap (f_score, current_node)
+    heapq.heappush(open_heap, (initial_f, start_node))
 
     while open_heap:
-        time, current_node, path, lines = heapq.heappop(open_heap)
-        if current_node == final_node:
-            return path + [current_node], lines
+        _, current_node = heapq.heappop(open_heap)
 
-        if current_node not in visited:
-            visited.add(current_node)
-            neighbors = graph[current_node]
-            for neighbor in neighbors:
-                if neighbor not in visited:
-                    total_time = time_between_stations(current_node, neighbor)
-                    new_time = time + total_time
-                    heuristic = time_between_stations(neighbor, final_node)
-                    current_line = graph.nodes[current_node].get(
-                        "line", "Unknown"
-                    )  # Cambio aquí
-                    if len(lines) == 0 or lines[-1] != current_line:
-                        new_lines = lines + [current_line]
-                    else:
-                        new_lines = lines.copy()
-                    new_node = (
-                        new_time + heuristic,
-                        neighbor,
-                        path + [current_node],
-                        new_lines,
-                    )
-                    heapq.heappush(open_heap, new_node)
+        if current_node == final_node:
+            path = []
+            lines = []
+            current = final_node
+
+            while current in came_from:
+                path.append(current)
+                if current in line_used:
+                    lines.append(line_used[current])
+                current = came_from[current]
+
+            path.append(start_node)
+            path.reverse()
+            lines.reverse()
+            return path, lines
+
+        visited.add(current_node)
+
+        for neighbor in graph[current_node]:
+            tentative_g = g_scores[current_node] + distance_between_stations(
+                current_node, neighbor
+            )
+
+            if neighbor not in g_scores or tentative_g < g_scores[neighbor]:
+                # This path is better
+                came_from[neighbor] = current_node
+                g_scores[neighbor] = tentative_g
+                f_score = tentative_g + distance_between_stations(neighbor, final_node)
+
+                # Get line info
+                current_line = graph.nodes[current_node].get("line", "Unknown")
+                line_used[neighbor] = current_line
+
+                if (f_score, neighbor) not in open_heap:
+                    heapq.heappush(open_heap, (f_score, neighbor))
 
     return None, None

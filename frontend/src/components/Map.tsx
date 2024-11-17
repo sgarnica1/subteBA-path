@@ -79,7 +79,7 @@ const SubteMap = ({ stations }: SubteMapProps) => {
         {shortestPathCoords &&
           <>
             <Polylines stationsByLine={shortestPathCoords} strokeWeight={10} />
-            <PoiMarker name={shortestPath[0].name} position={shortestPath[0].position} isOrigin={true} />
+            <PoiMarker name={shortestPath[shortestPath.length - 1].name} position={shortestPath[shortestPath.length - 1].position} isOrigin={true} />
           </>}
 
         {connections &&

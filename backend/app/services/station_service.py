@@ -1,12 +1,16 @@
+import math
 import networkx as nx
 from typing import List, Optional, Tuple
 from app.algorithms.a_star import a_star
-from app.algorithms.heuristics import time_between_stations
+from app.algorithms.heuristics import time_between_stations, distance_between_stations
 from app.repositories.station_repository import (
     get_stations,
     get_station_graph,
     get_lines,
 )
+from app.config.logger import configure_logger
+
+logger = configure_logger()
 
 
 def get_stations_with_positions() -> dict:
@@ -41,12 +45,20 @@ def find_path(start: str, finish: str) -> Optional[Tuple[List[str], List[str], i
 
     path_details = [graph.nodes[station] for station in path]
 
-    travel_time = sum(
-        time_between_stations(path[i], path[i + 1]) for i in range(len(path) - 1)
-    )
-    change_line_time = 3 * sum(
-        1 for i in range(len(lines) - 1) if lines[i] != lines[i + 1]
-    )
-    total_time = travel_time + change_line_time
+    travel_time = 0
+    for i in range(len(path) - 1):
+        time = time_between_stations(path[i], path[i + 1])
 
-    return [path_details, lines, total_time]
+        if path_details[i]["line"] != path_details[i + 1]["line"]:
+            time = math.ceil(time * 10)  # Walking time
+
+        path_details[i]["travel_time"] = math.ceil(time)
+        travel_time += math.ceil(time)
+
+    path_details[len(path_details) - 1][
+        "travel_time"
+    ] = 0  # Restart travel time for last station
+
+    logger.info(f"Travel time {travel_time}")
+
+    return [path_details, lines, travel_time]
