@@ -2,6 +2,9 @@ from typing import Optional, List, Tuple
 import networkx as nx
 import heapq
 from app.algorithms.heuristics import time_between_stations
+from app.config.logger import configure_logger
+
+logger = configure_logger()
 
 
 def a_star(

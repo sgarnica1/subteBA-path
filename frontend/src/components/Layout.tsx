@@ -9,7 +9,7 @@ type LayoutProps = {
 const Layout = ({ stations, children }: LayoutProps) => {
 
   const options = stations.map(station => ({
-    value: station.name,
+    value: station.id,
     label: station.name,
   }))
 

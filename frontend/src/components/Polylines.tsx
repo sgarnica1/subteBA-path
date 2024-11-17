@@ -1,8 +1,16 @@
 import { useMap } from '@vis.gl/react-google-maps';
 import { useEffect, useRef } from 'react';
 import { PositionType } from '../types/types';
+import { getLineColor } from '../utils/data';
 
-const Polylines = ({ stationsByLine }: { stationsByLine: { [key: string]: PositionType[] } }) => {
+type PolylinesProps = {
+  stationsByLine: { [key: string]: PositionType[] }
+  strokeOpacity?: number,
+  strokeWeight?: number,
+  mode?: string
+}
+
+const Polylines = ({ stationsByLine, strokeOpacity = 1.0, strokeWeight: strokeWeight = 5, mode = 'walking' }: PolylinesProps) => {
   const map = useMap();
   const polylinesRef = useRef<google.maps.Polyline[]>([]);
 
@@ -16,26 +24,19 @@ const Polylines = ({ stationsByLine }: { stationsByLine: { [key: string]: Positi
       const polyline = new google.maps.Polyline({
         path: positions,
         geodesic: true,
-        strokeColor:
-          line === "Línea A" ? "#04ACDF" :
-            line === "Línea B" ? "#EE1B2E" :
-              line === "Línea C" ? "#0168B3" :
-                line === "Línea D" ? "#008067" :
-                  line === "Línea E" ? "#6D227F" :
-                    "#000000",
-        strokeOpacity: 1.0,
-        strokeWeight: 5,
+        strokeColor: getLineColor(line),
+        strokeOpacity: strokeOpacity,
+        strokeWeight: strokeWeight,
         map: map
       });
       polylinesRef.current.push(polyline);
     });
 
-    // Cleanup
     return () => {
       polylinesRef.current.forEach(line => line.setMap(null));
       polylinesRef.current = [];
     };
-  }, [map, stationsByLine]);
+  }, [map, stationsByLine, strokeOpacity]);
 
   return null;
 };

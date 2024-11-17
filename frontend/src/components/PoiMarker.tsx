@@ -1,47 +1,80 @@
+import { useState } from "react";
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
+import SubteIcon from '../assets/subte.png';
+import PinIcon from '../assets/pin.svg';
 
 type PoiMarkerProps = {
-  name: string,
+  name: string;
   position: {
-    lat: number,
-    lng: number
-  }
-}
+    lat: number;
+    lng: number;
+  };
+  isOrigin?: boolean,
+};
 
-const PoiMarker = ({ name, position }: PoiMarkerProps) => {
+const PoiMarker = ({ name, position, isOrigin = false }: PoiMarkerProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <AdvancedMarker
       key={name}
       position={position}
+      onClick={() => { }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: '-10px',
-          left: '10px',
-          backgroundColor: '#FFFFFF',
-          color: '#000000',
-          padding: '2px 6px',
-          borderRadius: '4px',
-          fontSize: '12px',
-          fontWeight: 'bold',
-          whiteSpace: 'nowrap',
-          pointerEvents: 'none'
-        }}
-      >
-        {name}
-      </div>
-      <div
-        style={{
-          width: '8px',
-          height: '8px',
-          backgroundColor: '#000',
-          borderRadius: '50%',
-          border: '2px solid #FFFFFF',
-        }}
-      />
+      {/* Tooltip */}
+      {isHovered && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '-30px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: '#FFFFFF',
+            color: '#000000',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '12px',
+            fontWeight: 'bold',
+            whiteSpace: 'nowrap',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            pointerEvents: 'none',
+          }}
+        >
+          {name}
+        </div>
+      )}
+
+      {/* Pin */}
+      {!isOrigin &&
+        <div
+          style={{
+            width: '12px',
+            height: '12px',
+            backgroundColor: '#fff',
+            borderRadius: '50%',
+            border: '2px solid #000',
+            transform: 'translateY(5px)'
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        />
+      }
+
+      {isOrigin &&
+        <img
+          src={PinIcon}
+          alt="Pin Icon"
+          style={{
+            width: '34px',
+            height: '34px',
+            cursor: 'pointer',
+          }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        />
+      }
     </AdvancedMarker>
   );
 };
 
-export default PoiMarker
+export default PoiMarker;

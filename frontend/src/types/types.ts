@@ -4,6 +4,7 @@ export type PositionType = {
 }
 
 export type StationsType = {
+  id: string,
   name: string,
   position: PositionType,
   line: string

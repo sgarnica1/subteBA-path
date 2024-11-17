@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
-from pydantic import BaseModel
 from app.data.data import STATIONS
 from app.services.station_service import get_stations_with_positions, find_path
+from app.config.logger import configure_logger
 
 router = APIRouter()
 
@@ -19,15 +19,6 @@ async def get_stations():
     """
     data = get_stations_with_positions()
     return data
-
-
-class PathRequest(BaseModel):
-    """
-    Request model for the shortest path endpoint.
-    """
-
-    start_position: str
-    final_position: str
 
 
 @router.get("/path")
@@ -88,4 +79,4 @@ async def get_shortest_path(
         raise HTTPException(status_code=400, detail=f"Invalid positions provided. {e}")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Internal server error")
+        raise HTTPException(status_code=500, detail="Internal server error" + e)
