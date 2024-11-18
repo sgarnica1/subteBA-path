@@ -4,11 +4,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    emptyOutDir: true,
-    outDir: 'dist',
-    assetsDir: 'assets',
-  },
-  css: {
-    postcss: './postcss.config.js',
-  },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+        },
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+      }
+    }
+  }
 })
