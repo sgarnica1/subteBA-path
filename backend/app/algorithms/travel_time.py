@@ -18,7 +18,7 @@ def calculate_travel_time(
         if path_details[i]["line"] != path_details[i + 1]["line"]:
             time = math.ceil(time * 10)  # Walking time
         elif is_rush_hour:
-            time = math.ceil(time * 3)
+            time = math.ceil(time * 2)
 
         path_details[i]["travel_time"] = math.ceil(time)
         travel_time += math.ceil(time)
