@@ -6,7 +6,7 @@ import { useSubte } from '../context/SubteContext';
 import { days, hours } from '../utils/data';
 import { getLineColor } from '../utils/utils';
 
-
+const SUBTE_API_URL = import.meta.env.VITE_SUBTE_API_URL
 
 type SidebarProps = {
   options: option[]
@@ -25,7 +25,7 @@ const Sidebar = ({ options }: SidebarProps) => {
   const getShortestPath = () => {
     if (!origin || !destiny || !day || !hour) return
 
-    fetch(`http://localhost:8000/api/path/?start_position=${origin}&final_position=${destiny}&day=${day?.value}&hour=${hour?.value}`)
+    fetch(`${SUBTE_API_URL}/path/?start_position=${origin}&final_position=${destiny}&day=${day?.value}&hour=${hour?.value}`)
       .then(res => res.json())
       .then(data => {
         setTotalTime(Math.ceil(data.total_time))

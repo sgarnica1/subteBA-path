@@ -23,6 +23,8 @@ const SubteContext = createContext<SubteContextType>(defaultContext)
 
 const useSubte = () => useContext(SubteContext)
 
+const SUBTE_API_URL = import.meta.env.VITE_SUBTE_API_URL
+
 type SubteProviderProps = {
   children: ReactNode
 }
@@ -33,9 +35,10 @@ const SubteProvider = ({ children }: SubteProviderProps) => {
   const [shortestPath, setShortestPath] = useState<StationsType[]>([])
 
 
+
   useEffect(() => {
     if (stations.length == 0 && lineNames.length == 0)
-      fetch("http://localhost:8000/api/stations")
+      fetch(`${SUBTE_API_URL}/stations`)
         .then(res => res.json())
         .then(data => {
           if (data?.lines) setLineNames(Object.values(data.lines));
