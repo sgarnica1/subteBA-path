@@ -1,2 +1,6 @@
 [build]
   node_version = "18"
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Content-Type = "application/javascript"

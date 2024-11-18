@@ -5,6 +5,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     emptyOutDir: true,
+    outDir: 'dist',
+    assetsDir: 'assets',
   },
   css: {
     postcss: './postcss.config.js',
