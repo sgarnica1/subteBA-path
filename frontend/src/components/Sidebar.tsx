@@ -61,7 +61,7 @@ const Sidebar = ({ options }: SidebarProps) => {
 
 
   return (
-    <div className="min-w-[200px] lg:w-[22%] md:w-[36%] h-full bg-white text-gray-900 p-6 overflow-y-auto">
+    <div className="min-w-[200px] lg:w-[22%] md:w-[36%] md:h-full h-[50vh] bg-white text-gray-900 p-6 overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">Subte Buenos Aires</h2>
       <div className='flex flex-col gap-2'>
         <Select options={options} onChange={(e) => e && setOrigin(e.value)} placeholder={"Elige un punto de partida"} />
