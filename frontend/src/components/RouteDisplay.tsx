@@ -41,7 +41,7 @@ const RouteDisplay = ({ routeSteps, totalTime }: RouteDisplayProps) => {
             {/* Description */}
             <div className="flex flex-col">
               <p className="font-bold text-xs">{step.description}</p>
-              <p className="text-sm text-gray-600">{step.mode == "walking" ? "Caminar a la siguiente estación" : step.details}</p>
+              <p className="text-sm text-gray-600">{step.mode == "walking" ? "Transbordar a la siguiente línea" : step.details}</p>
             </div>
           </div>
         ))}

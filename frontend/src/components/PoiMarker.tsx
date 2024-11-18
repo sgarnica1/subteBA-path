@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
-import SubteIcon from '../assets/subte.png';
 import PinIcon from '../assets/pin.svg';
 
 type PoiMarkerProps = {

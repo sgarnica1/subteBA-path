@@ -5,6 +5,7 @@ import { option, StationsType, Step } from '../types/types';
 import { useSubte } from '../context/SubteContext';
 import { days, hours } from '../utils/data';
 import { getLineColor } from '../utils/utils';
+import { Oval } from 'react-loader-spinner'
 
 const SUBTE_API_URL = import.meta.env.VITE_SUBTE_API_URL
 
@@ -13,6 +14,8 @@ type SidebarProps = {
 }
 
 const Sidebar = ({ options }: SidebarProps) => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
   const [origin, setOrigin] = useState<string | null>(null)
   const [destiny, setDestiny] = useState<string | null>(null)
   const [day, setDay] = useState<option | null>(null)
@@ -25,6 +28,7 @@ const Sidebar = ({ options }: SidebarProps) => {
   const getShortestPath = () => {
     if (!origin || !destiny || !day || !hour) return
 
+    setLoading(true)
     fetch(`${SUBTE_API_URL}/path/?start_position=${origin}&final_position=${destiny}&day=${day?.value}&hour=${hour?.value}`)
       .then(res => res.json())
       .then(data => {
@@ -51,6 +55,8 @@ const Sidebar = ({ options }: SidebarProps) => {
         })
         setSteps(routeSteps)
       })
+      .catch(e => setError(e))
+      .finally(() => setLoading(false))
   }
 
 
@@ -64,10 +70,21 @@ const Sidebar = ({ options }: SidebarProps) => {
           <Select options={Object.values(days)} onChange={(e) => e && setDay(e)} placeholder={"Día"} className='w-full' value={day} />
           <Select options={Object.values(hours)} onChange={(e) => e && setHour(e)} placeholder={"Hora"} className='w-full' value={hour} />
         </div>
-        <button className='mt-5 p-2 text-white bg-blue-500 hover:bg-blue-400 transition-colors rounded-md disabled:bg-blue-300' onClick={() => getShortestPath()} disabled={!origin || !destiny || !day || !hour ? true : false}>Buscar ruta</button>
+        <button className='mt-5 p-2 text-white bg-blue-500 hover:bg-blue-400 transition-colors rounded-md disabled:bg-blue-300' onClick={() => getShortestPath()} disabled={!origin || !destiny || !day || !hour || loading || error ? true : false}>Buscar ruta</button>
       </div>
       <div className="flex flex-col gap-2 mt-5">
-        {steps && totalTime &&
+        {loading && <div className='w-full flex justify-center content-center'>
+          <Oval
+            visible={true}
+            height="30"
+            width="30"
+            color="#0168B3"
+            ariaLabel="oval-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+          />
+        </div>}
+        {steps && totalTime && !loading && !error &&
           <RouteDisplay routeSteps={steps} totalTime={totalTime} />
         }
       </div>

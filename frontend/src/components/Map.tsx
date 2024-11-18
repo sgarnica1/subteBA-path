@@ -26,13 +26,6 @@ const SubteMap = ({ stations }: SubteMapProps) => {
 
   const { shortestPath } = useSubte()
 
-  const mapOptions = {
-    zoomControl: true,
-    scrollwheel: true,
-    clickableIcons: true,
-    disableDefaultUI: false
-  };
-
   const formatLines = (stations: StationsType[]) => {
     return stations.reduce((acc, station) => {
       if (!acc[station.line]) acc[station.line] = [];
@@ -52,14 +45,13 @@ const SubteMap = ({ stations }: SubteMapProps) => {
       setStrokeOpacity(0.4)
       setStrokeWeight(2)
 
-      const aux = []
+      const aux: { [key: string]: PositionType[] } = {}
       shortestPath.forEach((station, index) => {
         if (index < shortestPath.length - 1 && station.line != shortestPath[index + 1].line) {
-          aux.push([
+          aux[index] = [
             { lat: station.position.lat, lng: station.position.lng },
             { lat: shortestPath[index + 1].position.lat, lng: shortestPath[index + 1].position.lng }
           ]
-          )
         }
       })
       setCononections(aux)
@@ -73,7 +65,7 @@ const SubteMap = ({ stations }: SubteMapProps) => {
         defaultCenter={location}
         defaultZoom={14}
         gestureHandling="greedy"
-        options={mapOptions}
+        disableDefaultUI={true}
         style={{ width: '100%', height: '100%' }}
       >
         {shortestPathCoords &&
