@@ -64,5 +64,5 @@ export const getCurrentDay = () => {
 export const getCurrentHour = () => {
   let hour: number = new Date().getHours()
   if (hour < 8 || hour > 22) hour = 8
-  return hours[hour.toString()]
+  return hours[hour.toString() as keyof typeof hours];
 }
