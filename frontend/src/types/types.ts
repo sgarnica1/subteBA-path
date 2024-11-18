@@ -16,5 +16,10 @@ export type Step = {
   mode: "walking" | "bus";
   description: string;
   details: string;
-  lineColor?: string; // Optional: For different modes of transport
+  lineColor?: string;
 };
+
+export type option = {
+  value: string,
+  label: string
+}

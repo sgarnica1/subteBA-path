@@ -1,7 +1,7 @@
 import { useMap } from '@vis.gl/react-google-maps';
 import { useEffect, useRef } from 'react';
 import { PositionType } from '../types/types';
-import { getLineColor } from '../utils/data';
+import { getLineColor } from '../utils/utils';
 
 type PolylinesProps = {
   stationsByLine: { [key: string]: PositionType[] }

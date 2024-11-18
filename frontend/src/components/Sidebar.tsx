@@ -1,32 +1,33 @@
 import { useState } from 'react';
 import Select from 'react-select';
 import RouteDisplay from './RouteDisplay';
-import { StationsType, Step } from '../types/types';
+import { option, StationsType, Step } from '../types/types';
 import { useSubte } from '../context/SubteContext';
-import { getLineColor } from '../utils/data';
+import { days, hours } from '../utils/data';
+import { getLineColor } from '../utils/utils';
+
+
 
 type SidebarProps = {
-  options: {
-    value: string,
-    label: string
-  }[]
+  options: option[]
 }
 
 const Sidebar = ({ options }: SidebarProps) => {
-  const [origin, setOrigin] = useState<string>("")
-  const [destiny, setDestiny] = useState<string>("")
+  const [origin, setOrigin] = useState<string | null>(null)
+  const [destiny, setDestiny] = useState<string | null>(null)
+  const [day, setDay] = useState<option | null>(null)
+  const [hour, setHour] = useState<option | null>(null)
   const [steps, setSteps] = useState<Step[]>([])
   const [totalTime, setTotalTime] = useState<number | null>(null)
 
   const { setShortestPath } = useSubte()
 
   const getShortestPath = () => {
-    if (origin == "" || destiny == "") return
+    if (!origin || !destiny || !day || !hour) return
 
-    fetch(`http://localhost:8000/api/path/?start_position=${origin}&final_position=${destiny}`)
+    fetch(`http://localhost:8000/api/path/?start_position=${origin}&final_position=${destiny}&day=${day?.value}&hour=${hour?.value}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setTotalTime(Math.ceil(data.total_time))
 
         const formatted = Object.values(data.path).map((station: any) => ({
@@ -59,7 +60,11 @@ const Sidebar = ({ options }: SidebarProps) => {
       <div className='flex flex-col gap-2'>
         <Select options={options} onChange={(e) => e && setOrigin(e.value)} placeholder={"Elige un punto de partida"} />
         <Select options={options} onChange={(e) => e && setDestiny(e.value)} placeholder={"Elige un lugar de destino"} />
-        <button className='mt-5 p-2 text-white bg-slate-500 rounded-md' onClick={() => getShortestPath()}>Buscar ruta</button>
+        <div className='flex gap-3'>
+          <Select options={Object.values(days)} onChange={(e) => e && setDay(e)} placeholder={"Día"} className='w-full' value={day} />
+          <Select options={Object.values(hours)} onChange={(e) => e && setHour(e)} placeholder={"Hora"} className='w-full' value={hour} />
+        </div>
+        <button className='mt-5 p-2 text-white bg-blue-500 hover:bg-blue-400 transition-colors rounded-md disabled:bg-blue-300' onClick={() => getShortestPath()} disabled={!origin || !destiny || !day || !hour ? true : false}>Buscar ruta</button>
       </div>
       <div className="flex flex-col gap-2 mt-5">
         {steps && totalTime &&

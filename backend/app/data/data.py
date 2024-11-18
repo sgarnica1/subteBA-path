@@ -349,3 +349,13 @@ LINE_STATIONS = {
         STATIONS["BOLIVAR"],
     ],
 }
+
+TRAIN_FREQUENCIES = {
+    "MONDAY": {"rush_hours": ["7", "8", "9", "16", "17", "18"], "frequency": 4},
+    "TUESDAY": {"rush_hours": ["7", "8", "9", "16", "17", "18"], "frequency": 4},
+    "WEDNESDAY": {"rush_hours": ["7", "8", "9", "16", "17", "18"], "frequency": 4},
+    "THURSDAY": {"rush_hours": ["7", "8", "9", "16", "17", "18"], "frequency": 4},
+    "FRIDAY": {"rush_hours": ["7", "8", "9", "16", "17", "18"], "frequency": 4},
+    "SATURDAY": {"rush_hours": [], "frequency": 6},
+    "SUNDAY": {"rush_hours": [], "frequency": 8},
+}
