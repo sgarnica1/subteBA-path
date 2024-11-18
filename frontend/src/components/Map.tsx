@@ -24,7 +24,7 @@ const SubteMap = ({ stations }: SubteMapProps) => {
   const [strokeOpactity, setStrokeOpacity] = useState<number>(1.0)
   const [strokeWeight, setStrokeWeight] = useState<number>(5)
 
-  const { shortestPath } = useSubte()
+  const { shortestPath, loading, error } = useSubte()
 
   const formatLines = (stations: StationsType[]) => {
     return stations.reduce((acc, station) => {
@@ -68,18 +68,18 @@ const SubteMap = ({ stations }: SubteMapProps) => {
         disableDefaultUI={true}
         style={{ width: '100%', height: '100%' }}
       >
-        {shortestPathCoords &&
+        {!loading && !error && shortestPathCoords &&
           <>
             <Polylines stationsByLine={shortestPathCoords} strokeWeight={10} />
             <PoiMarker name={shortestPath[shortestPath.length - 1].name} position={shortestPath[shortestPath.length - 1].position} isOrigin={true} />
           </>}
 
-        {connections &&
+        {!loading && !error && connections &&
           <Polylines stationsByLine={connections} strokeWeight={10} mode={"walking"} />}
 
+        {!loading && !error && <Polylines stationsByLine={stationsByLine} strokeOpacity={strokeOpactity} strokeWeight={strokeWeight} />}
 
-        <Polylines stationsByLine={stationsByLine} strokeOpacity={strokeOpactity} strokeWeight={strokeWeight} />
-        {stations.map((station) => (
+        {!loading && !error && stations.map((station) => (
           <PoiMarker name={station.name} position={station.position} key={station.id} />
         ))}
       </Map>
