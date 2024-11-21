@@ -5,7 +5,8 @@ from app.routers import stations
 app = FastAPI()
 
 origins = [
-    "http://localhost:5173",  # Allow frontend running on port 3000
+    "http://localhost:5173",
+    "https://subteba.netlify.app",
 ]
 
 # Add CORSMiddleware to the app

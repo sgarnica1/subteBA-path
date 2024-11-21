@@ -3,10 +3,12 @@ import { StationsType } from '../types/types';
 
 interface SubteContextType {
   shortestPath: StationsType[]
-  setShortestPath: (stations: StationsType[]) => void,
   stations: StationsType[]
-  setStations: (stations: StationsType[]) => void,
   lineNames: string[]
+  loading: boolean
+  error: boolean
+  setShortestPath: (stations: StationsType[]) => void,
+  setStations: (stations: StationsType[]) => void,
   setLineNames: (stations: string[]) => void,
 }
 
@@ -14,6 +16,8 @@ const defaultContext: SubteContextType = {
   shortestPath: [],
   stations: [],
   lineNames: [],
+  loading: true,
+  error: false,
   setShortestPath: () => { },
   setStations: () => { },
   setLineNames: () => { },
@@ -23,19 +27,24 @@ const SubteContext = createContext<SubteContextType>(defaultContext)
 
 const useSubte = () => useContext(SubteContext)
 
+const SUBTE_API_URL = import.meta.env.VITE_SUBTE_API_URL
+
 type SubteProviderProps = {
   children: ReactNode
 }
 
 const SubteProvider = ({ children }: SubteProviderProps) => {
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<boolean>(false)
   const [stations, setStations] = useState<StationsType[]>([]);
   const [lineNames, setLineNames] = useState<string[]>([]);
   const [shortestPath, setShortestPath] = useState<StationsType[]>([])
 
 
+
   useEffect(() => {
     if (stations.length == 0 && lineNames.length == 0)
-      fetch("http://localhost:8000/api/stations")
+      fetch(`${SUBTE_API_URL}/stations`)
         .then(res => res.json())
         .then(data => {
           if (data?.lines) setLineNames(Object.values(data.lines));
@@ -48,7 +57,9 @@ const SubteProvider = ({ children }: SubteProviderProps) => {
             }));
             setStations(formatted);
           }
-        });
+        })
+        .catch(e => setError(e))
+        .finally(() => setLoading(false))
   }, [stations, lineNames]);
 
   return (
@@ -57,6 +68,8 @@ const SubteProvider = ({ children }: SubteProviderProps) => {
         shortestPath,
         stations,
         lineNames,
+        loading,
+        error,
         setShortestPath,
         setStations,
         setLineNames

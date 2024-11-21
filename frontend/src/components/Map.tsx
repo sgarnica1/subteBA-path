@@ -24,14 +24,7 @@ const SubteMap = ({ stations }: SubteMapProps) => {
   const [strokeOpactity, setStrokeOpacity] = useState<number>(1.0)
   const [strokeWeight, setStrokeWeight] = useState<number>(5)
 
-  const { shortestPath } = useSubte()
-
-  const mapOptions = {
-    zoomControl: true,
-    scrollwheel: true,
-    clickableIcons: true,
-    disableDefaultUI: false
-  };
+  const { shortestPath, loading, error } = useSubte()
 
   const formatLines = (stations: StationsType[]) => {
     return stations.reduce((acc, station) => {
@@ -52,14 +45,13 @@ const SubteMap = ({ stations }: SubteMapProps) => {
       setStrokeOpacity(0.4)
       setStrokeWeight(2)
 
-      const aux = []
+      const aux: { [key: string]: PositionType[] } = {}
       shortestPath.forEach((station, index) => {
         if (index < shortestPath.length - 1 && station.line != shortestPath[index + 1].line) {
-          aux.push([
+          aux[index] = [
             { lat: station.position.lat, lng: station.position.lng },
             { lat: shortestPath[index + 1].position.lat, lng: shortestPath[index + 1].position.lng }
           ]
-          )
         }
       })
       setCononections(aux)
@@ -73,21 +65,21 @@ const SubteMap = ({ stations }: SubteMapProps) => {
         defaultCenter={location}
         defaultZoom={14}
         gestureHandling="greedy"
-        options={mapOptions}
+        disableDefaultUI={true}
         style={{ width: '100%', height: '100%' }}
       >
-        {shortestPathCoords &&
+        {!loading && !error && shortestPathCoords &&
           <>
             <Polylines stationsByLine={shortestPathCoords} strokeWeight={10} />
-            <PoiMarker name={shortestPath[0].name} position={shortestPath[0].position} isOrigin={true} />
+            <PoiMarker name={shortestPath[shortestPath.length - 1].name} position={shortestPath[shortestPath.length - 1].position} isOrigin={true} />
           </>}
 
-        {connections &&
+        {!loading && !error && connections &&
           <Polylines stationsByLine={connections} strokeWeight={10} mode={"walking"} />}
 
+        {!loading && !error && <Polylines stationsByLine={stationsByLine} strokeOpacity={strokeOpactity} strokeWeight={strokeWeight} />}
 
-        <Polylines stationsByLine={stationsByLine} strokeOpacity={strokeOpactity} strokeWeight={strokeWeight} />
-        {stations.map((station) => (
+        {!loading && !error && stations.map((station) => (
           <PoiMarker name={station.name} position={station.position} key={station.id} />
         ))}
       </Map>

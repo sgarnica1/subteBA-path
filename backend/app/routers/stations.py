@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from app.data.data import STATIONS
 from app.services.station_service import get_stations_with_positions, find_path
-from app.config.logger import configure_logger
 
 router = APIRouter()
 
@@ -25,6 +24,8 @@ async def get_stations():
 async def get_shortest_path(
     start_position: str = Query(..., description="The name of the starting station"),
     final_position: str = Query(..., description="The name of the destination station"),
+    day: str = Query(..., description="The day of the travel"),
+    hour: str = Query(..., description="The hour of the travel"),
 ):
     """
     Find the shortest path between two stations.
@@ -36,6 +37,8 @@ async def get_shortest_path(
     Args:
         start_position (str): The name of the starting station.
         final_position (str): The name of the ending station.
+        day (str): The selected day.
+        hour (str): The selected hour.
 
     Returns:
         dict: A dictionary containing the following:
@@ -58,7 +61,7 @@ async def get_shortest_path(
         final_station = STATIONS[final_position]
 
         # Get path result
-        path_result = find_path(start_station, final_station)
+        path_result = find_path(start_station, final_station, day, hour)
 
         if path_result[0] is None:
             raise ValueError("No valid path found between the stations")
