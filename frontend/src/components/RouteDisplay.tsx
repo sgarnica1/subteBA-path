@@ -9,12 +9,13 @@ type RouteDisplayProps = {
 const RouteDisplay = ({ routeSteps, totalTime }: RouteDisplayProps) => {
   return (
     <>
-      {totalTime && totalTime > 0 && (<h3>Tiempo total: {totalTime} minutos</h3>)}
+      {totalTime && totalTime > 0 && (
+        <h3 className='text-md text-gray-600 font-semibold'>Tiempo total: {totalTime} minutos</h3>)}
       <div className="flex flex-col p-4">
         {routeSteps.map((step, index) => (
           <div key={index} className="flex items-start gap-4">
             {/* Time Column */}
-            <div className="text-gray-500 text-sm min-w-[30px]">{step.time}</div>
+            <div className="text-gray-500 text-sm min-w-[40px]">{step.time > 0 ? `${step.time} min` : "Fin"}</div>
 
             {/* Line and Content */}
             <div className="flex flex-col items-center">
@@ -40,7 +41,7 @@ const RouteDisplay = ({ routeSteps, totalTime }: RouteDisplayProps) => {
             {/* Description */}
             <div className="flex flex-col">
               <p className="font-bold text-xs">{step.description}</p>
-              <p className="text-sm text-gray-600">{step.details}</p>
+              <p className="text-sm text-gray-600">{step.mode == "walking" ? "Transbordar a la siguiente línea" : step.details}</p>
             </div>
           </div>
         ))}

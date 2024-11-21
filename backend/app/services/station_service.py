@@ -1,7 +1,8 @@
+import math
 import networkx as nx
 from typing import List, Optional, Tuple
 from app.algorithms.a_star import a_star
-from app.algorithms.heuristics import time_between_stations
+from app.algorithms.travel_time import calculate_travel_time
 from app.repositories.station_repository import (
     get_stations,
     get_station_graph,
@@ -16,13 +17,17 @@ def get_stations_with_positions() -> dict:
     return {"stations": get_stations(), "lines": get_lines()}
 
 
-def find_path(start: str, finish: str) -> Optional[Tuple[List[str], List[str], int]]:
+def find_path(
+    start: str, finish: str, day: str, hour: str
+) -> Optional[Tuple[List[str], List[str], int]]:
     """
     Find the shortest path between two stations.
 
     Args:
         start (str): The starting station ID.
         finish (str): The destination station ID.
+        day (str): The selected day.
+        hour (int): The selected hour.
 
     Returns:
         Optional[Tuple[List[str], List[str], int]]:
@@ -41,12 +46,6 @@ def find_path(start: str, finish: str) -> Optional[Tuple[List[str], List[str], i
 
     path_details = [graph.nodes[station] for station in path]
 
-    travel_time = sum(
-        time_between_stations(path[i], path[i + 1]) for i in range(len(path) - 1)
-    )
-    change_line_time = 3 * sum(
-        1 for i in range(len(lines) - 1) if lines[i] != lines[i + 1]
-    )
-    total_time = travel_time + change_line_time
+    travel_time = calculate_travel_time(day, hour, path, path_details)
 
-    return [path_details, lines, total_time]
+    return [path_details, lines, travel_time]

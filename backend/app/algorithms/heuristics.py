@@ -3,23 +3,23 @@ from typing import Tuple
 from app.data.data import VELOCITY, STATIONS_POSITION
 
 
-def distance_between_points(
-    pos1: Tuple[float, float], pos2: Tuple[float, float]
-) -> float:
+def distance_between_stations(pos1: str, pos2: str) -> float:
     """
     Calculate the Euclidean distance between two points in 2D space.
 
     Args:
-        pos1 (Tuple[float, float]): The coordinates of the first point (x1, y1).
-        pos2 (Tuple[float, float]): The coordinates of the second point (x2, y2).
+        start_station (str): The identifier for the starting station.
+        final_station (str): The identifier for the destination station.
 
     Returns:
-        float: The distance between the two points, scaled by 800 (to match your system's units).
+        float: The distance between the two points in meters (Multiplied by 100,000 to scale to meters in Google Maps).
     """
-    x1, y1 = pos1
-    x2, y2 = pos2
+    start_station = STATIONS_POSITION[pos1]["position"]
+    final_station = STATIONS_POSITION[pos2]["position"]
+    x1, y1 = start_station
+    x2, y2 = final_station
 
-    return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 800
+    return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2) * 100000
 
 
 def time_between_stations(
@@ -36,6 +36,5 @@ def time_between_stations(
     Returns:
         float: The time required to travel between the two stations, in minutes.
     """
-    start_position = STATIONS_POSITION[start_station]["position"]
-    final_station = STATIONS_POSITION[final_station]["position"]
-    return distance_between_points(start_position, final_station) / velocity
+
+    return distance_between_stations(start_station, final_station) / velocity
