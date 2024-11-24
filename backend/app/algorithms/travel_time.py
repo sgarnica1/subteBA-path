@@ -1,8 +1,7 @@
 import math
-from typing import List, Tuple
-from app.data.data import TRAIN_FREQUENCIES
-from app.config.logger import configure_logger
-from app.algorithms.heuristics import time_between_stations
+from typing import List
+from app.data.data import TRAIN_FREQUENCIES, TRANSFER_COST, ENTRY_EXIT_TIME
+from app.algorithms.heuristics import euclidean_time_with_stops
 
 
 def calculate_travel_time(
@@ -13,15 +12,18 @@ def calculate_travel_time(
 
     travel_time = 0
     for i in range(len(path) - 1):
-        time = time_between_stations(path[i], path[i + 1])
+        time = euclidean_time_with_stops(path[i], path[i + 1])
 
         if path_details[i]["line"] != path_details[i + 1]["line"]:
-            time = math.ceil(time * 10)  # Walking time
+            time = TRANSFER_COST  # Transfer time
         elif is_rush_hour:
-            time = math.ceil(time * 2)
+            time = round(time * 2)
 
-        path_details[i]["travel_time"] = math.ceil(time)
-        travel_time += math.ceil(time)
+        if i == 0:
+            time += ENTRY_EXIT_TIME
+
+        path_details[i]["travel_time"] = round(time)
+        travel_time += round(time)
 
     path_details[len(path_details) - 1][
         "travel_time"
