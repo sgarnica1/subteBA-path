@@ -228,9 +228,9 @@ def a_estrella(inicio, fin, grafo, posiciones, calcTiempo, colores_lineas):
             vecinos = grafo[nodo_actual]
             for vecino in vecinos:
                 if vecino not in visitados:
-                    tiempo_recorrido = calcTiempo(nodo_actual, vecino)
-                    nuevo_tiempo = tiempo + tiempo_recorrido
-                    heuristica = calcTiempo(vecino, fin)
+                    tiempo_recorrido = calcTiempo(nodo_actual, vecino)  # g
+                    nuevo_tiempo = tiempo + tiempo_recorrido  # g + g nuevo
+                    heuristica = calcTiempo(vecino, fin)  # h
                     linea_actual = G.nodes[nodo_actual].get(
                         "linea", "Desconocida"
                     )  # Cambio aquí
