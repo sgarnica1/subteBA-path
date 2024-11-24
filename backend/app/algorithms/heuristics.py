@@ -61,5 +61,15 @@ def euclidean_time_with_stops(
 
 
 def heuristic_between_stations(start_station: str, final_station: str) -> float:
-    euclidean_time = distance_between_stations(start_station, final_station) / VELOCITY
-    return euclidean_time
+    """
+    Calculate the time it takes to travel between two stations, given their positions
+
+    Args:
+        start_station (str): The identifier for the starting station.
+        final_station (str): The identifier for the destination station.
+
+    Returns:
+        float: The time required to travel between the two stations, in minutes.
+    """
+    time = euclidean_time(start_station, final_station)
+    return time
