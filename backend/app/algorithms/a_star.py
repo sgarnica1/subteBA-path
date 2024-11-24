@@ -1,7 +1,11 @@
 from typing import Optional, List, Tuple
 import networkx as nx
 import heapq
-from app.algorithms.heuristics import distance_between_stations
+from app.algorithms.heuristics import (
+    euclidean_time_with_stops,
+    heuristic_between_stations,
+)
+from app.data.data import TRANSFER_COST
 
 
 def a_star(
@@ -34,7 +38,9 @@ def a_star(
     line_used = {}
 
     # Initial heuristic calculation
-    initial_f = g_scores[start_node] + distance_between_stations(start_node, final_node)
+    initial_f = g_scores[start_node] + heuristic_between_stations(
+        start_node, final_node
+    )
 
     # Push initial node into the heap (f_score, current_node)
     heapq.heappush(open_heap, (initial_f, start_node))
@@ -61,18 +67,26 @@ def a_star(
         visited.add(current_node)
 
         for neighbor in graph[current_node]:
-            tentative_g = g_scores[current_node] + distance_between_stations(
-                current_node, neighbor
+            current_line = graph.nodes[current_node].get("line", "Unknown")
+            neighbor_line = graph.nodes[neighbor].get("line", "Unknown")
+
+            transfer_cost = 0
+            if current_line != neighbor_line:
+                transfer_cost = TRANSFER_COST
+
+            tentative_g = (
+                g_scores[current_node]
+                + euclidean_time_with_stops(current_node, neighbor)
+                + transfer_cost
             )
 
             if neighbor not in g_scores or tentative_g < g_scores[neighbor]:
                 # This path is better
                 came_from[neighbor] = current_node
                 g_scores[neighbor] = tentative_g
-                f_score = tentative_g + distance_between_stations(neighbor, final_node)
+                f_score = tentative_g + euclidean_time_with_stops(neighbor, final_node)
 
                 # Get line info
-                current_line = graph.nodes[current_node].get("line", "Unknown")
                 line_used[neighbor] = current_line
 
                 if (f_score, neighbor) not in open_heap:
