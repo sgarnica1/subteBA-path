@@ -3,7 +3,6 @@ import Select from 'react-select';
 import RouteDisplay from './RouteDisplay';
 import { option, StationsType, Step } from '../types/types';
 import { useSubte } from '../context/SubteContext';
-import { days, hours } from '../utils/data';
 import { getLineColor } from '../utils/utils';
 import { Oval } from 'react-loader-spinner'
 
@@ -18,18 +17,16 @@ const Sidebar = ({ options }: SidebarProps) => {
   const [error, setError] = useState<boolean>(false)
   const [origin, setOrigin] = useState<string | null>(null)
   const [destiny, setDestiny] = useState<string | null>(null)
-  const [day, setDay] = useState<option | null>(null)
-  const [hour, setHour] = useState<option | null>(null)
   const [steps, setSteps] = useState<Step[]>([])
   const [totalTime, setTotalTime] = useState<number | null>(null)
 
-  const { setShortestPath, loading: loadingStations } = useSubte()
+  const { setShortestPath, loading: loadingStations, error: errorStations } = useSubte()
 
   const getShortestPath = () => {
-    if (!origin || !destiny || !day || !hour) return
+    if (!origin || !destiny) return
 
     setLoading(true)
-    fetch(`${SUBTE_API_URL}/path/?start_position=${origin}&final_position=${destiny}&day=${day?.value}&hour=${hour?.value}`)
+    fetch(`${SUBTE_API_URL}/path/?start_position=${origin}&final_position=${destiny}`)
       .then(res => res.json())
       .then(data => {
         setTotalTime(Math.ceil(data.total_time))
@@ -61,7 +58,7 @@ const Sidebar = ({ options }: SidebarProps) => {
 
 
   return (
-    <div className="min-w-[200px] lg:w-[22%] md:w-[36%] md:h-full h-[50vh] bg-white text-gray-900 p-6 overflow-y-auto">
+    <div className="min-w-[200px] lg:w-[22%] md:w-[36%] sm:w-[100%] md:h-full h-[50vh] bg-white text-gray-900 p-6 overflow-y-auto">
       <h2 className="text-xl font-bold mb-4">Subte Buenos Aires</h2>
       {loadingStations ?
         <div className='flex gap-3 items-center justify-center'>
@@ -80,11 +77,24 @@ const Sidebar = ({ options }: SidebarProps) => {
           <div className='flex flex-col gap-2'>
             <Select options={options} onChange={(e) => e && setOrigin(e.value)} placeholder={"Elige un punto de partida"} />
             <Select options={options} onChange={(e) => e && setDestiny(e.value)} placeholder={"Elige un lugar de destino"} />
-            <div className='flex gap-3'>
-              <Select options={Object.values(days)} onChange={(e) => e && setDay(e)} placeholder={"Día"} className='w-full' value={day} />
-              <Select options={Object.values(hours)} onChange={(e) => e && setHour(e)} placeholder={"Hora"} className='w-full' value={hour} />
-            </div>
-            <button className='mt-5 p-2 text-white bg-blue-500 hover:bg-blue-400 transition-colors rounded-md disabled:bg-blue-300' onClick={() => getShortestPath()} disabled={!origin || !destiny || !day || !hour || loading || error ? true : false}>Buscar ruta</button>
+            {origin && destiny && origin === destiny && (
+              <p className="text-sm text-yellow-700 bg-yellow-100 border border-yellow-300 rounded-md p-2 mt-2">
+                No se puede seleccionar la misma estación.
+              </p>
+            )}
+
+            <button
+              className='mt-5 p-2 text-white bg-blue-500 hover:bg-blue-400 transition-colors rounded-md disabled:bg-blue-300'
+              onClick={() => getShortestPath()}
+              disabled={!origin || !destiny || loading || error || origin == destiny ? true : false}
+            >
+              Buscar ruta
+            </button>
+            {error || errorStations &&
+              <p className="text-sm text-red-600 bg-red-100 border border-red-300 rounded-md p-2 mt-2">
+                Ocurrió un error inesperado, por favor vuelve a intentar.
+              </p>
+            }
           </div>
           <div className="flex flex-col gap-2 mt-5">
             {loading && <div className='w-full flex justify-center content-center'>
@@ -98,8 +108,8 @@ const Sidebar = ({ options }: SidebarProps) => {
                 wrapperClass=""
               />
             </div>}
-            {steps && totalTime && !loading && !error &&
-              <RouteDisplay routeSteps={steps} totalTime={totalTime} />
+            {!loading && !error && steps && totalTime ?
+              <RouteDisplay routeSteps={steps} totalTime={totalTime} /> : <></>
             }
           </div>
         </>}

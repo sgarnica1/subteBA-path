@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import PinIcon from '../assets/pin.svg';
+import Tooltip from './Tooltip';
 
 type PoiMarkerProps = {
   name: string;
@@ -9,9 +10,10 @@ type PoiMarkerProps = {
     lng: number;
   };
   isOrigin?: boolean,
+  isDestiny?: boolean,
 };
 
-const PoiMarker = ({ name, position, isOrigin = false }: PoiMarkerProps) => {
+const PoiMarker = ({ name, position, isOrigin = false, isDestiny = false }: PoiMarkerProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -21,31 +23,15 @@ const PoiMarker = ({ name, position, isOrigin = false }: PoiMarkerProps) => {
       onClick={() => { }}
     >
       {/* Tooltip */}
-      {isHovered && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '-30px',
-            left: '50%',
-            transform: 'translateX(-50%)',
-            backgroundColor: '#FFFFFF',
-            color: '#000000',
-            padding: '4px 8px',
-            borderRadius: '4px',
-            fontSize: '12px',
-            fontWeight: 'bold',
-            whiteSpace: 'nowrap',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-            pointerEvents: 'none',
-            zIndex: 10,
-          }}
-        >
-          {name}
-        </div>
+      {isHovered && !isOrigin && (
+        <Tooltip name={name} />
+      )}
+      {isOrigin && (
+        <Tooltip name={name} />
       )}
 
       {/* Pin */}
-      {!isOrigin &&
+      {!isDestiny &&
         <div
           style={{
             width: '12px',
@@ -60,7 +46,7 @@ const PoiMarker = ({ name, position, isOrigin = false }: PoiMarkerProps) => {
         />
       }
 
-      {isOrigin &&
+      {isDestiny &&
         <img
           src={PinIcon}
           alt="Pin Icon"
