@@ -131,8 +131,9 @@ pnpm run dev
 graph LR
     A[Frontend React] --> B[API FastAPI]
     B --> C[Algoritmo A*]
-    C --> D[Base de datos]
+    C --> D[Datos]
     B --> A
+    A --> E[Google Maps API]
 ```
 
 ## Autores
