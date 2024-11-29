@@ -1,10 +1,8 @@
-VELOCITY = 1000  # la velocidad media pasó de 60 km/hora a 1000 metros/minutos para obtener el tiempo en minutos
+VELOCITY = 400  # la velocidad media pasó de 24 km/hora a 400 metros/minutos para obtener el tiempo en minutos
 
-STOP_TIME = 1.5  # Minutes for stops
+STOP_TIME = 0.43  # Minutes for stops
 
 TRANSFER_COST = 2  # Minutes for transfers between lines
-
-ENTRY_EXIT_TIME = 1
 
 STATIONS = {
     "ALBERTI": "ALBERTI",

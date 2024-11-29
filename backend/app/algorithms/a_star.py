@@ -84,7 +84,7 @@ def a_star(
                 # This path is better
                 came_from[neighbor] = current_node
                 g_scores[neighbor] = tentative_g
-                f_score = tentative_g + euclidean_time_with_stops(neighbor, final_node)
+                f_score = tentative_g + heuristic_between_stations(neighbor, final_node)
 
                 # Get line info
                 line_used[neighbor] = current_line
