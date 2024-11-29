@@ -15,18 +15,13 @@ SubteBA Path es una aplicación web que permite calcular y visualizar la ruta ó
 ### Frontend
 - React.js
 - Tailwind CSS
-- React Router
-- Leaflet (para visualización de mapas)
+- Google Maps API (para visualización de mapas)
 
 ### Backend
 - Python (FastAPI)
-- SQLite (para almacenamiento de datos de estaciones)
-- NumPy (para cálculos de distancias y algoritmo A*)
 
 ### Herramientas de desarrollo
-- Poetry (gestión de dependencias Python)
 - Vite (bundling y desarrollo frontend)
-- Docker (containerización)
 - Git (control de versiones)
 
 ## Estructura del proyecto
@@ -38,14 +33,14 @@ subte-ba-path/
 │   └── package.json
 ├── backend/                 # API FastAPI
 │   ├── app/
-│   │   ├── algorithms/     # Implementación A*
-│   │   ├── models/        
-│   │   └── routes/
-│   ├── tests/
-│   └── pyproject.toml
-├── data/                    # Datos de estaciones y conexiones
-├── docs/                    # Documentación adicional
-└── docker-compose.yml
+│   │   ├── algorithms/      # Implementación A*
+│   │   ├── config/        
+│   │   ├── data/        
+│   │   ├── repositories/        
+│   │   ├── routers/        
+│   │   └── services/
+│   ├── main.py
+└── requirements.txt
 ```
 
 ## Instalación y configuración
@@ -53,23 +48,77 @@ subte-ba-path/
 ### Requisitos previos
 - Python 3.8 o superior
 - Node.js 16 o superior
-- Docker y Docker Compose (opcional)
 
-### Configuración del entorno
-1. Clonar el repositorio (instrucciones pendientes)
-2. Configurar el backend:
+## Instalación
+### Clonar el repositorio 
+##### HTTPS
+```bash
+git clone https://github.com/sgarnica1/subteBA-path.git
+```
+##### SSH
+```bash
+git clone git@github.com:sgarnica1/subteBA-path.git
+```
+### Configurar el backend:
 ```bash
 cd backend
-poetry install
-poetry run uvicorn app.main:app --reload
+```
+#### Crear un entorno virtual (Recomendado)
+##### Windows
+```bash
+py -m venv venv
+venv\Scripts\activate
+```
+##### macOS/Linux
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+#### Instalar dependencias
+##### Windows
+```bash
+pip install -r requirements.txt
+```
+##### macOS
+```bash
+xcode-select --install
+pip install -r requirements.txt
+```
+##### Linux
+```bash
+sudo apt update && sudo apt install python3-dev build-essential libpq-dev
+pip install -r requirements.txt
 ```
 
-3. Configurar el frontend:
+#### Iniciar el servidor
+``` bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+```
+
+#### Comprobar backend
+``` bash
+curl http://localhost:8000/docs
+```
+
+### Configurar el frontend:
 ```bash
 cd frontend
-npm install
-npm run dev
 ```
+#### Crear un archivo `.env` con las siguientes variables
+``` bash
+VITE_GOOGLE_MAPS_API_KEY=<tu_api_key_de_google_maps>
+VITE_SUBTE_API_URL=http://localhost:8000
+```
+#### Instalar pnpm
+```bash
+npm install -g pnpm
+```
+#### Instalar dependencias y ejecutar la aplicación
+```bash
+pnpm install
+pnpm run dev
+```
+
 
 ## Uso
 1. Acceder a la aplicación web (por defecto en `http://localhost:5173`)
@@ -85,15 +134,6 @@ graph LR
     C --> D[Base de datos]
     B --> A
 ```
-
-## Contribución
-Las contribuciones son bienvenidas. Por favor, seguir los siguientes pasos:
-1. Fork del repositorio
-2. Crear una nueva rama (`git checkout -b feature/mejora`)
-3. Realizar los cambios
-4. Commit (`git commit -am 'Añade nueva funcionalidad'`)
-5. Push a la rama (`git push origin feature/mejora`)
-6. Crear un Pull Request
 
 ## Autores
 | Apellidos           | Nombre | Matrícula | Email                      | Grupo  |

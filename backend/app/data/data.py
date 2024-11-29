@@ -2,7 +2,7 @@ VELOCITY = 1000  # la velocidad media pasó de 60 km/hora a 1000 metros/minutos 
 
 STOP_TIME = 1.5  # Minutes for stops
 
-TRANSFER_COST = 2  # Minuts for transfers between lines
+TRANSFER_COST = 2  # Minutes for transfers between lines
 
 ENTRY_EXIT_TIME = 1
 
